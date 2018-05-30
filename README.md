@@ -2,7 +2,7 @@
 
 ## Pre-Requisites
 
-* Ubuntu 14.04.3/4
+* Ubuntu 16.04.2 (Kernel 4.4.0-62)
 * Contrail-Cloud 3.1.3.0-73 (Mitaka)
 * Agilio vRouter 3.1.0.0-281
 * Minimum number of required hosts: 2
