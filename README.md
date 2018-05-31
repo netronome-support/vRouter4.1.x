@@ -6,7 +6,7 @@
 * Agilio vRouter 4.1.x
 * Minimum number of required hosts: 3
 
-1
+
 
 * Install Ubuntu 16.04.2 (Kernel 4.4.0-62) all the nodes in the setup
 
