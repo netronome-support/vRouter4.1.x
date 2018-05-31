@@ -43,4 +43,4 @@ DIR='s,<cmp_dm>,'$cmp_dm',g'
 sed -i $DIR $CLUSTER
 DIR='s,<cmp_ip>,'$cmp_ip',g'
 sed -i $DIR $CLUSTER
-
+#server-manager add cluster -f $CLUSTER
