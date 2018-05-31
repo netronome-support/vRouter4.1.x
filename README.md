@@ -6,7 +6,7 @@
 * Agilio vRouter 4.1.x
 * Minimum number of required hosts: 3
 
-1
+
 
 * Install Ubuntu 16.04.2 (Kernel 4.4.0-62) all the nodes in the setup
 
@@ -21,7 +21,7 @@ cd /opt/contrail/contrail_server_manager
 ./setup.sh --all --smlite --hostip=<ipv4 address of host>  
 ```
 
->**NOTE:** Installation can be followed here: tail -f `find /var/log/contrail/install_logs | sort -r | head -1`
+>**NOTE:** Installation can be followed here: ``` tail -f `find /var/log/contrail/install_logs | sort -r | head -1` ```
 
 * Add docker images to server-manager
 
