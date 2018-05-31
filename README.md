@@ -21,7 +21,7 @@ cd /opt/contrail/contrail_server_manager
 ./setup.sh --all --smlite --hostip=<ipv4 address of host>  
 ```
 
->**NOTE:** Installation can be followed here: ``` tail -f `find /var/log/contrail/install_logs | sort -r | head -1` ```
+>**NOTE:** Installation can be followed here: ``` tail -f `find /var/log/contrail/install_logs | sort -r | head -1` ``` 1
 
 * Add docker images to server-manager
 
