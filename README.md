@@ -1,23 +1,48 @@
-# Netronome vRouter Installation Guide
+# Quick Agilio vRouter 4.1.1 Installation Guide
 
 ## Pre-Requisites
 
 * Ubuntu 16.04.2 (Kernel 4.4.0-62)
-* Contrail-Cloud 3.1.3.0-73 (Mitaka)
-* Agilio vRouter 3.1.0.0-281
-* Minimum number of required hosts: 2
+* Agilio vRouter 4.1.x
+* Minimum number of required hosts: 3
 
-## Remove existing Contrail & Fabric installations
-      dpkg -l | awk '/contrail/ {print $2}' | xargs -Iz dpkg -r z
 
-## On all nodes
 
-* Install Ubuntu 14.04.3/4 on all the nodes in the setup
+* Install Ubuntu 16.04.2 (Kernel 4.4.0-62) all the nodes in the setup
 
-* Download the following packages:
-     
-     1. contrail-install-packages_3.1.3.0-73-mitaka_all.deb
-     2. ns-agilio-vrouter-release_3.1.0.0-281.tgz
+## On server-manager node
+
+* Install server-manager
+      dpkg -i contrail-server-manager-installer_4.1.0.0-8~xenial.deb
+
+* Configure server-manager
+```
+cd /opt/contrail/contrail_server_manager
+./setup.sh --all --smlite --hostip=<ipv4 address of host>  
+```
+
+>**NOTE:** Installation can be followed here: tail -f `find /var/log/contrail/install_logs | sort -r | head -1`
+
+* Add docker images to server-manager
+
+```
+server-manager add image -f cluster_3node.json
+```
+
+* Apply Netronome patches
+```
+cd ~/Netronome_R4.1_build_*
+./00_create_netronome_repo.sh ocata
+./01_patch_server_manager.sh ocata
+./02_update_docker_images.sh ocata
+
+service contrail-server-manager restart
+```
+
+
+
+## On Undercloud Nodes
+
 
 ## On Controller node
 
