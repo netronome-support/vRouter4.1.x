@@ -29,8 +29,13 @@ if [ ! -f $KEYFILE ]; then
     ssh-keygen -t rsa -f $KEY_FILE -q -P ""
     ssh-add $KEY_FILE
 fi
+#ssh-copy-id -f -i $KEY_FILE.pub root@$OVC_IP
+#ssh-copy-id -f -i $KEY_FILE.pub root@$CMP_IP
+#ssh-keygen -f $KEY_FILE -q -P ""
+ssh-add $KEY_FILE
 ssh-copy-id -f -i $KEY_FILE.pub root@$OVC_IP
 ssh-copy-id -f -i $KEY_FILE.pub root@$CMP_IP
+
 
 echo "Building params for Control/Compute Node"
 CNTRL=$(ssh $OVC_IP 'cat /etc/hostname')
@@ -64,7 +69,7 @@ DIR='s,<nfp_mac>,'$NFP_MAC',g'
 sed -i $DIR $SERVER1
 DIR='s,<nfp_iface>,'$NFP_IFACE',g'
 sed -i $DIR $SERVER1
-#server-manager add server -f $SERVER1
+server-manager add server -f $SERVER1
 
 echo "Building params for Compute Node"
 CMP=$(ssh $CMP_IP 'cat /etc/hostname')
@@ -98,5 +103,8 @@ DIR='s,<nfp_mac>,'$NFP_MAC',g'
 sed -i $DIR $SERVER2
 DIR='s,<nfp_iface>,'$NFP_IFACE',g'
 sed -i $DIR $SERVER2
-#server-manager add server -f $SERVER2
+server-manager add server -f $SERVER2
 
+echo "Added servers"
+sleep 1
+server-manager status server

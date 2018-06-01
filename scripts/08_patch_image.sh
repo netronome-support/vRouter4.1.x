@@ -24,11 +24,13 @@ tar -xvf Netronome_R4.1_build_**.tar
 rm -r Netronome_R4.1_build_**.tar
 
 echo "Applying patces"
-#./Netronome_R4.1_build_**/00_setup_repos.sh $IMAGE
-#./Netronome_R4.1_build_**/01_patch_server_manager.sh $IMAGE
-#./Netronome_R4.1_build_**/02_update_docker.sh $IMAGE
+cd Netronome_R4.1_build_**
+./00_setup_repos.sh $IMAGE
+./01_patch_server_manager.sh $IMAGE
+./02_update_docker.sh $IMAGE
 
 echo "Cleaning up"
+cd ..
 rm -r Netronome_R4.1_build_**
 
 echo "Restarting contrail"
