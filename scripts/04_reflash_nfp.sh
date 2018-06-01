@@ -8,3 +8,6 @@ echo "Reflashing SmartNIC NFP"
 /opt/netronome/bin/nfp-flash --preserve-media-overrides -w /opt/netronome/flash/flash-nic.bin
 /opt/netronome/bin/nfp-one
 echo "Flash Complete"
+echo "Reloading NFP drivers"
+rmmod nfp
+modprobe nfp
