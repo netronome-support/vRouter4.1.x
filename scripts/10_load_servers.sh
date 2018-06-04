@@ -1,6 +1,6 @@
 #!/bin/bash
 # Configures .JSON config files to load servers into contrail cluster
-KEY_FILE="$HOME/.ssh/netronome_key"
+KEY_FILE="root/.ssh/id_rsa"
 CL_NM=atari_apple
 DM=netronome.com
 GWAY=172.26.0.1
@@ -29,12 +29,8 @@ if [ ! -f $KEYFILE ]; then
     ssh-keygen -t rsa -f $KEY_FILE -q -P ""
     ssh-add $KEY_FILE
 fi
-#ssh-copy-id -f -i $KEY_FILE.pub root@$OVC_IP
-#ssh-copy-id -f -i $KEY_FILE.pub root@$CMP_IP
-#ssh-keygen -f $KEY_FILE -q -P ""
-ssh-add $KEY_FILE
-ssh-copy-id -f -i $KEY_FILE.pub root@$OVC_IP
-ssh-copy-id -f -i $KEY_FILE.pub root@$CMP_IP
+ssh-copy-id -f root@$OVC_IP
+ssh-copy-id -f root@$CMP_IP
 
 
 echo "Building params for Control/Compute Node"
