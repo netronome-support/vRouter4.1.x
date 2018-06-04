@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script to install Agilio NFP drivers for vRouter4.1.1.
 # Install dependencies
-BUILD_VER=62
+BUILD_VER=70
 CONTRAIL_VER=4.1
 BUILD_NAME="Netronome_R${CONTRAIL_VER}_build_${BUILD_VER}"
 # Download driver files

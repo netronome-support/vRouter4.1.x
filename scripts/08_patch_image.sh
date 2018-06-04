@@ -1,6 +1,8 @@
 #!/bin/bash
 # Applies Netronome specific contrail patches to server-manager image
-
+BUILD_VER=70
+CONTRAIL_VER=4.1
+BUILD_NAME="Netronome_R${CONTRAIL_VER}_build_${BUILD_VER}"
 # First test for image name argument
 if [ -z "$1" ]; then
 	# If no input then default to ocata
@@ -19,7 +21,7 @@ if [ "$(server-manager display image | grep 'ocata' | cut -d " " -f2 | cut -d " 
 fi
 
 echo "Downloading patches"
-wget http://pahome.netronome.com/releases-intern/vrouter/builds/Netronome_R4.1_build_62.tar
+wget http://pahome.netronome.com/releases-intern/vrouter/builds/${BUILD_NAME}.tar
 tar -xvf Netronome_R4.1_build_**.tar
 rm -r Netronome_R4.1_build_**.tar
 
