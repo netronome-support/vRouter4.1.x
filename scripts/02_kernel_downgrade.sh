@@ -1,9 +1,11 @@
 #!/bin/bash
 # Script to downgrade kernel to Contrail 4.1.1 supported 4.4.0-62
+
 # Check if kernel needs to change
 echo "Checking kernel version"
 kern=$(uname -r)
-if [[ "$kern" == "4.4.0-62-generic" ]]; then
+if [[ "$kern" == "4.4.0-62-generic" ]]; then\
+	# If kernel is matched
 	echo "Kernel is $kern no need to change"
 	exit -1
 else

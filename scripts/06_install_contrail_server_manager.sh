@@ -2,18 +2,26 @@
 # Script to install SMLink on Orchestrator
 # Download package
 echo "Downloading contrail package"
-#wget http://172.26.1.131/nas/vrouter4/contrail-server-manager-installer_4.1.0.0-8~xenial.deb
-wget http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-server-manager-installer_4.1.0.0-8~xenial.deb
+# Local repo version from the NAS
+#wget http://172.26.1.131/nas/vrouter4/contrail-server-manager-installer_4.1.0.0-11~xenial.deb
+# Inet version from PA
+wget http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-server-manager-installer_4.1.0.0-11~xenial.deb
+
 # Install package
 echo "Installing contrail Server-Manager"
-dpkg -i contrail-server-manager-installer_4.1.0.0-8~xenial.deb
+dpkg -i contrail-server-manager-installer_4.1.0.0-11~xenial.deb
 
 # Start contrail setup and watch it's deployment
 echo "Starting contrail install"
 /opt/contrail/contrail_server_manager/setup.sh --all --smlite --hostip=172.26.1.53
+
+# Monitor installation and wait until installation is complete
 tail -f `find /var/log/contrail/install_logs | sort -r | head -1` | tee /dev/tty | awk '/SM installation took/ {system("pkill tail")}'
+
 # Restart contrail service
 echo "Restarting contrail"
 service contrail-server-manager restart
+
+# Clean up lose ends
 echo "Cleaning up"
-rm -r contrail-server-manager-installer_4.1.0.0-8~xenial.deb
+rm -r contrail-server-manager-installer_4.1.0.0-11~xenial.deb

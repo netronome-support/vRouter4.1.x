@@ -3,6 +3,7 @@
 BUILD_VER=70
 CONTRAIL_VER=4.1
 BUILD_NAME="Netronome_R${CONTRAIL_VER}_build_${BUILD_VER}"
+
 # First test for image name argument
 if [ -z "$1" ]; then
 	# If no input then default to ocata
@@ -20,11 +21,13 @@ if [ "$(server-manager display image | grep 'ocata' | cut -d " " -f2 | cut -d " 
 	exit -1
 fi
 
+# Download and extract vrouter build files
 echo "Downloading patches"
 wget http://pahome.netronome.com/releases-intern/vrouter/builds/${BUILD_NAME}.tar
 tar -xvf Netronome_R4.1_build_**.tar
 rm -r Netronome_R4.1_build_**.tar
 
+# Apply patches to image
 echo "Applying patces"
 cd Netronome_R4.1_build_**
 ./00_setup_repos.sh $IMAGE
