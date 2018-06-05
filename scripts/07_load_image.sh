@@ -16,7 +16,7 @@ DIR='s,<docker_path>,'${PWD}'/contrail-cloud-docker_4.1.0.0-8-ocata_xenial.tgz,g
 sed -i $DIR $IMAGE
 
 echo "Downloading OpenStack Image"
-wget http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.0.0-8-ocata_xenial.tgz
+#wget http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.0.0-8-ocata_xenial.tgz
 
 echo "Adding image to server manager"
 server-manager add image -f $IMAGE
