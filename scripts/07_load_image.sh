@@ -1,5 +1,6 @@
 #!/bin/bash
 # Loads Ocata openstack image
+
 #TODO: Add check for existing image and remove from server-manager
 echo "Making JSON config directory"
 cd ${PWD}/../
@@ -12,14 +13,14 @@ fi
 echo "Copying and updating config templates"
 cp ${PWD}/clusterconf/2node_cluster/* ${PWD}/confs
 IMAGE="${PWD}/confs/image.json"
-DIR='s,<docker_path>,'${PWD}'/contrail-cloud-docker_4.1.0.0-11-ocata_xenial.tgz,g'
+DIR='s,<docker_path>,'${PWD}'/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz,g'
 sed -i $DIR $IMAGE
 
 echo "Downloading OpenStack Image"
 # Local repo version from the NAS
-#wget http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.0.0-11-ocata_xenial.tgz
+http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 # Inet version from PA
-wget http://bonobo.netronome.com/vrouter/dependencies/juiner_packages/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
+#wget http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 
 echo "Adding image to server manager"
 server-manager add image -f $IMAGE
@@ -33,7 +34,6 @@ while [ $(docker image list | grep main | wc -l) != "57" ]; do
 		LAST=$CURRENT
 	fi
 done
-
+sleep 20
 echo "Instalation complete"
-sleep 1
 server-manager display image

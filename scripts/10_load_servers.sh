@@ -1,14 +1,29 @@
 #!/bin/bash
 # Configures .JSON config files to load servers into contrail cluster
 KEY_FILE="root/.ssh/id_rsa"
-CL_NM=atari_apple
-DM=netronome.com
-GWAY=172.26.0.1
-MSK=255.255.252.0
+#================================
+# CHANGE THE FOLLOWING
+#============CLUSTER=============
+# Cluster name
+CL_NM="atari_apple"
+# Domain name
+DM="netronome.com"
+# Default management network gateway
+GWAY="172.26.0.1"
+# Managment network subnet mask
+MSK="255.255.252.0"
+#===============================
+#=========CONTROL=NODE==========
+# Control node management IP
+OVC_IP="172.26.1.51"
+#========COMPUTE=NODE===========
+# compute node management IP
+CMP_IP="172.26.1.52"
+#===============================
+# NO MORE CHANGES
+#===============================
 CNTRL_DM=$cntrl.$dm
 CMP_DM=$cmp.$dm
-OVC_IP=172.26.1.51
-CMP_IP=172.26.1.52
 NFP_IFACE="nfp_p1"
 echo "Checking for config directory"
 cd ${PWD}/../

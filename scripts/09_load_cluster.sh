@@ -1,16 +1,38 @@
 #!/bin/bash
 # Creates cluster in server-manager
-#TODO: Add check for existing image and remove from server-manager
+#================================
+# CHANGE THE FOLLOWING
+#============CLUSTER=============
+# Cluster name
 cl_nm="atari_apple"
+# Domain name
 dm="netronome.com"
+# Default management network gateway
 gway="172.26.0.1"
+# Managment network subnet mask
 msk="255.255.252.0"
+#===============================
+#=========CONTROL=NODE==========
+# Control node host name
 cntrl="atari"
-cntrl_dm="$cntrl.$dm"
-cmp="apple"
-cmp_dm="$cmp.$dm"
+# Control node management IP
 ovc_ip="172.26.1.51"
+#========COMPUTE=NODE===========
+# Compute node host name
+cmp="apple"
+# compute node management IP
 cmp_ip="172.26.1.52"
+#===============================
+# NO MORE CHANGES
+#===============================
+
+#TODO: Add check for existing image and remove from server-manager 
+echo "Constructing domain names"
+# Control node domain
+cntrl_dm="$cntrl.$dm"
+# Compute node domain
+cmp_dm="$cmp.$dm"
+
 echo "Checking for config directory"
 cd ${PWD}/../
 if [ $(ls | grep "confs") == "confs" ]; then
