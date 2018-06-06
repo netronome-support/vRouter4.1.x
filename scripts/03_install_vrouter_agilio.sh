@@ -34,15 +34,10 @@ apt-get install -y -f
 #	ns-agilio-vrouter-udev_4.1.0.0-*.deb agilio-nic-firmware-2.0.7-1.deb\
 #	nfp-bsp-6000-b0_2018.**.**.****-1_amd64.deb 
 
-# Reload NFP drivers
-echo "Reloading drivers"
-rmmod nfp
-modprobe nfp
-
 # Configure drivers to load on startup
 echo "Configuring initramfs"
 /opt/netronome/libexec/write_udev_rules.sh
-cat /etc/udev/rules.d/10-netronome.udev.rules
+cat /etc/udev/rules.d/90-netronome.udev.rules
 update-initramfs -u
 
 # Cleaning up
@@ -52,4 +47,9 @@ cd ..
 cd ..
 cd ..
 rm -r NFP/${BUILD_NAME}.tar
+
+# Reload NFP drivers
+echo "Reloading drivers"
+rmmod nfp
+modprobe nfp
 

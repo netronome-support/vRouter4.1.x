@@ -18,4 +18,6 @@ if [ ! -f $KEYFILE ]; then
 fi
 ssh-copy-id -f root@$OVC_IP
 server-manager provision -F --cluster_id atari_apple ocata
-tail -f /var/log/contrail-server-manager/debug.log | tee /dev/tty  | awk '/Waiting for nova-compute service up/ {system("./$PWD/utils/02_restart_nova.sh $CNTRL_IP") }' | awk '/Process done/ {system("exit") }'
+CMD=".${PWD}/utils/02_reset_nova.sh ${OVC_IP}"
+echo "$CMD"
+tail -f /var/log/contrail-server-manager/debug.log | tee /dev/tty # | awk '/Waiting for nova-compute service up/ {system(".${PWD}/utils/02_reset_nova.sh ${OVC_IP}") }'

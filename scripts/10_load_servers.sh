@@ -44,8 +44,8 @@ if [ ! -f $KEYFILE ]; then
     ssh-keygen -t rsa -f $KEY_FILE -q -P ""
     ssh-add $KEY_FILE
 fi
-ssh-copy-id -f root@$OVC_IP
-ssh-copy-id -f root@$CMP_IP
+ssh-copy-id -f -i $KEY_FILE root@$OVC_IP
+ssh-copy-id -f -i $KEY_FILE root@$CMP_IP
 
 
 echo "Building params for Control/Compute Node"

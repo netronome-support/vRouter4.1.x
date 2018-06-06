@@ -1,12 +1,14 @@
 #!/bin/bash
 CNTRL_IP=$1
 echo "Restarting Nova on: $CNTRL_IP"
+echo "Stopping NS-vrouter"
+ssh $CNTRL_IP '/opt/netronome/bin/ns-vrouter-ctl stop'
 sleep 5
-echo "Stopping ns-vrouter"
-ssh $CNTRL_IP 'ns-vrouter-ctl stop'
+echo "Checking vhost0"
+ssh $CNTRL_IP "ifconfig vhost0"
 sleep 5
 echo "Stopping contrail vrouter agent"
-ssh $CNTRL_IP 'Service contrail-vrouter-agent stop'
+ssh $CNTRL_IP 'service contrail-vrouter-agent stop'
 sleep 5
 echo "Restarting ns-vrouter"
 ssh $CNTRL_IP 'ns-vrouter-ctl restart'

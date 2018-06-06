@@ -3,5 +3,5 @@
 echo "Cleaning contrail"
 rm /etc/apt/sources.list.d/*
 apt remove -y $(dpkg -l | grep -i cloud0 | awk '{print $2}')
-apt-update
+apt-get update
 
