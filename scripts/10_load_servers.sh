@@ -29,8 +29,8 @@ echo "Checking for config directory"
 cd ${PWD}/../
 if [ $(ls | grep "confs") == "confs" ]; then
         echo "Config directory already exists"
-        cp ${PWD}/clusterconf/2node_cluster/server1.json ${PWD}/confs/
-	cp ${PWD}/clusterconf/2node_cluster/server2.json ${PWD}/confs/
+        cp ${PWD}/clusterconf/2node_cluster/control.json ${PWD}/confs/
+	cp ${PWD}/clusterconf/2node_cluster/compute.json ${PWD}/confs/
 else
         echo "Creating config directory"
         mkdir ${PWD}/confs
@@ -59,7 +59,7 @@ NFP_IP=$(ssh $OVC_IP "ifconfig $NFP_IFACE" | grep 'inet addr:' | awk '$2!="inet:
 echo "Nfp ip: $NFP_IP"
 NFP_MAC=$(ssh $OVC_IP "ifconfig | grep -B1 'inet addr:${NFP_IP}'" | awk '$1!="HWaddr" {print $5}' | cut -d$'\n' -f1)
 echo "Nfp mac: $NFP_MAC"
-SERVER1="${PWD}/confs/server1.json"
+SERVER1="${PWD}/confs/control.json"
 DIR='s,<cl_nm>,'$CL_NM',g'
 sed -i $DIR $SERVER1
 DIR='s,<dm>,'$DM',g'
@@ -93,7 +93,7 @@ NFP_IP=$(ssh $CMP_IP "ifconfig $NFP_IFACE" | grep 'inet addr:' | awk '$2!="inet:
 echo "Nfp ip: $NFP_IP"
 NFP_MAC=$(ssh $CMP_IP "ifconfig | grep -B1 'inet addr:${NFP_IP}'" | awk '$1!="HWaddr" {print $5}' | cut -d$'\n' -f1)
 echo "Nfp mac: $NFP_MAC"
-SERVER2="${PWD}/confs/server2.json"
+SERVER2="${PWD}/confs/compute.json"
 DIR='s,<cl_nm>,'$CL_NM',g'
 sed -i $DIR $SERVER2
 DIR='s,<dm>,'$DM',g'

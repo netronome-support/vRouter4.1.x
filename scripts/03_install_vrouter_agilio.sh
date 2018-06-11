@@ -52,4 +52,3 @@ rm -r NFP/${BUILD_NAME}.tar
 echo "Reloading drivers"
 rmmod nfp
 modprobe nfp
-

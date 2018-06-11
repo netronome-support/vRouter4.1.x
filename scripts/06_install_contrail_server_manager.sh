@@ -2,8 +2,10 @@
 # Script to install SMLink on Orchestrator
 LOCAL_HOST=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
 echo "Local host IP: $LOCAL_HOST"
+
 # Download package
 echo "Downloading contrail package"
+
 # Local repo version from the NAS
 wget http://172.26.1.131/nas/vrouter4/contrail-server-manager-installer_4.1.1.0-11_ubuntu-16-04ocata_all.deb
 # Inet version from PA

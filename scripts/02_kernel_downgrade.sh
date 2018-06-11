@@ -4,7 +4,7 @@
 # Check if kernel needs to change
 echo "Checking kernel version"
 kern=$(uname -r)
-if [[ "$kern" == "4.4.0-62-generic" ]]; then\
+if [[ "$kern" == "4.4.0-62-generic" ]]; then
 	# If kernel is matched
 	echo "Kernel is $kern no need to change"
 	exit -1
@@ -20,6 +20,11 @@ wget http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-62-
 wget http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-62_4.4.0-62.83_all.deb -O kernelfiles/linux-headers-4.4.0-62_4.4.0-62.83_all.deb
 echo "Installing kernel"
 dpkg -i kernelfiles/*.deb
+if [[ $(dpkg -l | grep "4.4.0-62-generic" | wc -l) != 3 ]]; then
+	# Problem with installing/downloading kernel files
+	echo "Error with kernel downgrade"
+	exit -1
+fi
 
 # Cleaning up and removing old kernel
 echo "Removing existing kernel and cleaning up"
