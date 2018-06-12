@@ -33,6 +33,7 @@ apt-get install -y -f
 #dpkg -i agilio-nfp-driver-dkms_2018.**.**.****.237fdbb_all.deb\
 #	ns-agilio-vrouter-udev_4.1.0.0-*.deb agilio-nic-firmware-2.0.7-1.deb\
 #	nfp-bsp-6000-b0_2018.**.**.****-1_amd64.deb 
+sleep 10
 
 # Configure drivers to load on startup
 echo "Configuring initramfs"

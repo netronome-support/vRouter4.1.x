@@ -11,7 +11,7 @@ else
 fi
 
 echo "Copying and updating config templates"
-cp ${PWD}/clusterconf/2node_cluster/* ${PWD}/confs
+cp ${PWD}/clusterconf/* ${PWD}/confs
 IMAGE="${PWD}/confs/image.json"
 DIR='s,<docker_path>,'${PWD}'/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz,g'
 sed -i $DIR $IMAGE
