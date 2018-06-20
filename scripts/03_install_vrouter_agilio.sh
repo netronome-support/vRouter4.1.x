@@ -1,4 +1,8 @@
 #!/bin/bash
+# Check apt package up to date
+apt-get update
+apt-get upgrade
+
 # Script to install Agilio NFP drivers for vRouter4.1.1.
 mkdir NFP
 cd NFP
