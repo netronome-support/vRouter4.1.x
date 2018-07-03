@@ -40,7 +40,6 @@
                         "contrail-analytics",
                         "contrail-controller",
                         "contrail-analyticsdb",
-                        "contrail-compute"
                 ]
         }
         ]

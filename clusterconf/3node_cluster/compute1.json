@@ -36,10 +36,6 @@
                 },
                 "password": "netronome",
                 "roles": [
-                        "openstack",
-                        "contrail-analytics",
-                        "contrail-controller",
-                        "contrail-analyticsdb",
                         "contrail-compute"
                 ]
         }

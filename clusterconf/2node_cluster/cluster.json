@@ -59,7 +59,7 @@
                         "enable_haproxy": "no",
                         "kolla_base_distro": "ubuntu",
                         "openstack_release": "4.1.0",
-                        "network_interface": "nfp_p1"
+                        "network_interface": "<nfp_iface>"
                 },
                 "ha": {
                         "contrail_internal_vip": "<ovc_ip>"

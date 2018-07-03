@@ -23,7 +23,11 @@ fi
 
 # Download and extract vrouter build files
 echo "Downloading patches"
-wget http://pahome.netronome.com/releases-intern/vrouter/builds/${BUILD_NAME}.tar
+wget --tries=1 http://pahome.netronome.com/releases-intern/vrouter/builds/${BUILD_NAME}.tar
+if [[ $? -ne 0 ]]; then
+    exit 1;
+fi
+
 tar -xvf Netronome_R4.1_build_**.tar
 rm -r Netronome_R4.1_build_**.tar
 

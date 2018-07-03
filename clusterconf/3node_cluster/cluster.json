@@ -52,14 +52,14 @@
                         "mysql": {
                                 "root_password": "netronome",
                                 "service_password": "netronome",
-                                "allowed_hosts": ["127.0.0.1", "localhost", "<cntrl>", "<cmp>", "<ovc_ip>", "<cmp_ip>", "<cntrl_dm>", "<cmp_dm>"]
+                                "allowed_hosts": ["127.0.0.1", "localhost", "<cntrl>", "<cmp1>", "<cmp2>", "<ovc_ip>", "<cmp1_ip>", "<cmp2_ip>", "<cntrl_dm>", "<cmp1_dm>", "<cmp2_dm>"]
                         }
                 },
                 "kolla_globals": {
                         "enable_haproxy": "no",
                         "kolla_base_distro": "ubuntu",
                         "openstack_release": "4.1.0",
-                        "network_interface": "nfp_p1"
+                        "network_interface": "<nfp_iface>"
                 },
                 "ha": {
                         "contrail_internal_vip": "<ovc_ip>"

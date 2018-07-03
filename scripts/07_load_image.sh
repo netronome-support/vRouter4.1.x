@@ -11,19 +11,24 @@ else
 fi
 
 echo "Copying and updating config templates"
-cp ${PWD}/clusterconf/* ${PWD}/confs
+cp -r ${PWD}/clusterconf/* ${PWD}/confs
 IMAGE="${PWD}/confs/image.json"
 DIR='s,<docker_path>,'${PWD}'/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz,g'
 sed -i $DIR $IMAGE
 
 echo "Downloading OpenStack Image"
 # Local repo version from the NAS
-http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
+wget --tries=1 http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 # Inet version from PA
 #wget http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 
+#Check for successful file download
+if [[ $? -ne 0 ]]; then
+    exit 1;
+fi
+
 echo "Adding image to server manager"
-server-manager add image -f $IMAGE
+#server-manager add image -f $IMAGE
 
 echo "Waiting for image upload"
 LAST="start"
