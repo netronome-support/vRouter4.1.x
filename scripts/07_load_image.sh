@@ -20,7 +20,7 @@ echo "Downloading OpenStack Image"
 # Local repo version from the NAS
 wget --tries=1 http://172.26.1.131/nas/vrouter4/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 # Inet version from PA
-#wget http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
+#wget --tries=1 http://bonobo.netronome.com/vrouter/dependencies/juniper_packages/contrail-cloud-docker_4.1.1.0-11-ocata_xenial.tgz
 
 #Check for successful file download
 if [[ $? -ne 0 ]]; then
@@ -28,7 +28,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo "Adding image to server manager"
-#server-manager add image -f $IMAGE
+server-manager add image -f $IMAGE
 
 echo "Waiting for image upload"
 LAST="start"

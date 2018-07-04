@@ -4,7 +4,7 @@
 # CHANGE THE FOLLOWING
 #=========CONTROL=NODE==========
 # Control node management IP
-OVC_IP="172.26.1.53"
+OVC_IP="172.26.1.149"
 #===============================
 # NO MORE CHANGES
 #===============================
@@ -17,7 +17,7 @@ if [ ! -f $KEYFILE ]; then
     ssh-add $KEY_FILE
 fi
 ssh-copy-id -f root@$OVC_IP
-server-manager provision -F --cluster_id nick_jaco ocata
+server-manager provision -F --cluster_id simba_zazu ocata
 tail -f /var/log/contrail-server-manager/debug.log | tee /dev/tty | awk '/Waiting for nova-compute service up/ {system("pkill tail")}'
 sleep 20
 ${PWD}/utils/02_reset_nova.sh ${OVC_IP}

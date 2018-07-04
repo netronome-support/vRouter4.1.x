@@ -1,6 +1,6 @@
 #!/bin/bash
 # Cleans the server-manager machine 
-if [ -f "/etc/init.d/contrai-server-manager" ]; then
+if [ -f "/etc/init.d/contrail-server-manager" ]; then
 	echo "SM installed"
 	# On server manager if SMLite was installed, delete all servers
 	for entry in $(server-manager display server | tail -4 | head -3 | awk '{print $2}'); do 
