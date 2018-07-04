@@ -24,8 +24,8 @@
                                         "flow_export_rate": "10"
                                 },
                                 "openstack_config": {
-                                        "management_ip": "<ovc_ip>",
-                                        "ctrl-data_ip": "<ovc_ip>"
+                                        "management_ip": "<nfp_ip>",
+                                        "ctrl-data_ip": "<nfp_ip>"
                                 },
                                 "api_config": {
                                         "log_level": "SYS_NOTICE",
@@ -62,7 +62,7 @@
                         "network_interface": "<nfp_iface>"
                 },
                 "ha": {
-                        "contrail_internal_vip": "<ovc_ip>"
+                        "contrail_internal_vip": "<nfp_ip>"
                 }
                 }
                 }

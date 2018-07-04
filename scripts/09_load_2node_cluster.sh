@@ -24,6 +24,7 @@ cmp="zazu"
 cmp_ip="172.26.1.150"
 #=========NFP=IFACE=============
 nfp_iface="enp2s0"
+nfp_ip="10.0.0.1"
 #===============================
 # NO MORE CHANGES
 #===============================
@@ -68,6 +69,8 @@ sed -i $DIR $CLUSTER
 DIR='s,<cmp_ip>,'$cmp_ip',g'
 sed -i $DIR $CLUSTER
 DIR='s,<nfp_iface>,'$nfp_iface',g'
+sed -i $DIR $CLUSTER
+DIR='s,<nfp_ip>,'$nfp_ip',g'
 sed -i $DIR $CLUSTER
 server-manager add cluster -f $CLUSTER
 echo "Successfully added cluster"
