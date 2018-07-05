@@ -45,7 +45,7 @@ else
 	echo "Creating config directory"
         mkdir ${PWD}/confs
 	echo "Copying and updating config templates"
-	cp ${PWD}/clusterconf/* ${PWD}/confs
+	cp -r ${PWD}/clusterconf/* ${PWD}/confs
 fi
 CLUSTER="${PWD}/confs/2node_cluster/cluster.json"
 DIR='s,<cl_nm>,'$cl_nm',g'

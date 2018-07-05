@@ -62,7 +62,7 @@
                         "network_interface": "<nfp_iface>"
                 },
                 "ha": {
-                        "contrail_internal_vip": "<nfp_ip>"
+                        "contrail_internal_vip": "<ovc_ip>"
                 }
                 }
                 }
