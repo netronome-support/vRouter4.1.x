@@ -39,7 +39,7 @@
                         "openstack",
                         "contrail-analytics",
                         "contrail-controller",
-                        "contrail-analyticsdb",
+                        "contrail-analyticsdb"
                 ]
         }
         ]

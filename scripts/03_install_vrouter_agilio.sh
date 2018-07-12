@@ -8,7 +8,7 @@ mkdir NFP
 cd NFP
 
 # Build names and dirs for build versions
-BUILD_VER=71
+BUILD_VER=72
 CONTRAIL_VER=4.1
 BUILD_NAME="Netronome_R${CONTRAIL_VER}_build_${BUILD_VER}"
 
@@ -39,12 +39,6 @@ apt-get install -y -f
 #	nfp-bsp-6000-b0_2018.**.**.****-1_amd64.deb 
 sleep 10
 
-# Configure drivers to load on startup
-echo "Configuring initramfs"
-/opt/netronome/libexec/write_udev_rules.sh
-cat /etc/udev/rules.d/90-netronome.udev.rules
-update-initramfs -u
-
 # Cleaning up
 echo "Cleaning lose ends"
 cd ..
@@ -57,3 +51,22 @@ rm -r NFP/${BUILD_NAME}.tar
 echo "Reloading drivers"
 rmmod nfp
 modprobe nfp
+
+# Configure drivers to load on startup
+echo "Configuring initramfs"
+/opt/netronome/libexec/write_udev_rules.sh
+cat /etc/udev/rules.d/90-netronome.udev.rules
+update-initramfs -u
+
+# Update grub
+while true; do
+    read -p "Set IOMMU in Grub for SRIOV? :" yn
+    case $yn in
+        [Yy]* ) echo "Setting Grub"; break;;
+        [Nn]* ) echo "Done";exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+#sed -i '/GRUB_CMDLINE_LINUX_DEFAULT=""/c\GRUB_CMDLINE_LINUX_DEFAULT="console=tty1 console=ttys0 intel_iommu=on iommu=pt"' /etc/default/grub
+

@@ -2,11 +2,11 @@
        "server": [{
                 "cluster_id": "<cl_nm>",
                 "domain": "<dm>",
-                "id": "<cntrl>",
+                "id": "<cmp>",
                 "network": {
                         "interfaces": [{
                                 "default_gateway": "<gway>",
-                                "ip_address": "<cntrl_ip>",
+                                "ip_address": "<cmp_ip>",
                                 "mac_address": "<mgmt_mac>",
                                 "name": "<mgmt_iface>"
                         },

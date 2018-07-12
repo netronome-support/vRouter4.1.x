@@ -1,6 +1,6 @@
 #!/bin/bash
 # Applies Netronome specific contrail patches to server-manager image
-BUILD_VER=71
+BUILD_VER=72
 CONTRAIL_VER=4.1
 BUILD_NAME="Netronome_R${CONTRAIL_VER}_build_${BUILD_VER}"
 
