@@ -6,7 +6,7 @@
 # Control node management IP
 OVC_IP="172.26.1.149"
 # Cluster name
-CL_NM="simba_zazu_nala"
+CL_NM="simba_zazu"
 #===============================
 # NO MORE CHANGES
 #===============================
