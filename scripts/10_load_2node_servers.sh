@@ -25,7 +25,7 @@ cmp_ip="172.26.1.150"
 #===============================
 cmtrl_dm=$cntrl.$dm
 cmp_dm=$cmp.$dm
-nfp_iface="enp2s0"
+nfp_iface="nfp_p0"
 echo "Checking for config directory"
 cd ${PWD}/../
 if [ $(ls | grep "confs") == "confs" ]; then
@@ -107,7 +107,7 @@ DIR='s,<mgmt_mac>,'$cmp_mac',g'
 sed -i $DIR $SERVER2
 DIR='s,<mgmt_iface>,'$cmp_iface',g'
 sed -i $DIR $SERVER2
-DIR='s,<nfp_ip>,'$nfp_iface',g'
+DIR='s,<nfp_ip>,'$nfp_ip',g'
 sed -i $DIR $SERVER2
 DIR='s,<nfp_mac>,'$nfp_mac',g'
 sed -i $DIR $SERVER2

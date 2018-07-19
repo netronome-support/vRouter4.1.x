@@ -23,7 +23,7 @@ cmp="zazu"
 # compute node management IP
 cmp_ip="172.26.1.150"
 #=========NFP=IFACE=============
-nfp_iface="enp2s0"
+nfp_iface="nfp_p0"
 nfp_ip="10.0.0.1"
 #===============================
 # NO MORE CHANGES
