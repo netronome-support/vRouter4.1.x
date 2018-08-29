@@ -1,6 +1,6 @@
-# Agilio vRouter 4.1.1 Installation Guide
+# Agilio vRouter 4.1.1
 
 
-   [Quick Getting Started Guide](https://github.com/netronome-support/vRouter4.1.x/wiki) |
+ Documentation and installation guide can be found on the [wiki](https://github.com/netronome-support/vRouter4.1.x/wiki) |
 
 ---
