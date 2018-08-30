@@ -1,0 +1,343 @@
+series: xenial
+services:
+  ubuntu:
+    charm: cs:xenial/ubuntu
+    num_units: 3
+    to: [ "1","2", "3" ]
+  ntp:
+    charm: cs:xenial/ntp
+    num_units: 0
+    options:
+      source: ntp.ubuntu.com
+  mysql:
+    charm: cs:xenial/percona-cluster
+    options:
+      dataset-size: 15%
+      max-connections: 10000
+      root-password: netronome
+      sst-password: netronome
+    num_units: 1
+    to: [ "lxd:1" ]
+  rabbitmq-server:
+    charm: cs:xenial/rabbitmq-server
+    num_units: 1
+    to: [ "lxd:1" ]
+  contrail-rabbitmq-server:
+    charm: cs:xenial/rabbitmq-server
+    num_units: 1
+    to: [ "lxd:1" ]
+  keystone:
+    charm: cs:xenial/keystone
+    options:
+      admin-password: netronome
+      admin-role: admin
+      openstack-origin: cloud:xenial-ocata
+    num_units: 1
+    to: [ "lxd:1" ]
+  nova-cloud-controller:
+    charm: ./charm-nova-cloud-controller
+    options:
+      network-manager: Neutron
+      openstack-origin: cloud:xenial-ocata
+      extra-key: |
+        - |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          Version: GnuPG v1
+          
+          mQENBFseLG0BCAC+XumfN2gli4ZV/NJLTZNVE4Tjq2BHXjnnqR+u6A1kK7rlZR0l
+          SdYbmWwnhK7FDDqIAyKkv1K4MVjaQacj2GbW7D+DHi0X/oBgw/gE8RehkRDthBZ2
+          zTjq+58Dk/vjttKeiwJRXp9wAoIZGasdehWO7iwTjqQO/2h9jVeOYYSmu52rUTYC
+          rtCMFYCkdqeVglvjV72IE7ZdsaXo+/PcAObgEb6yQk2gn16QDdIaOqcqZaW821io
+          jzGDhoXoE38LQrHjA0CWLrVVyasPx1CAsabbTW90qiVHe3nkzySKzZ5GWEEmiWVE
+          mW8R5u58Wn1RUTDufXYRJ5X9sDIdJXHcPYshABEBAAG0OHBpZXRlciAoY29udHJh
+          aWwtcmVwbyB0ZXN0KSA8cGlldGVyLm1hbGFuQG5ldHJvbm9tZS5jb20+iQE4BBMB
+          AgAiBQJbHixtAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCn47rJdtyC
+          oRcvB/9pRwXfwteq444WgtMzQ2e61ZHmG5MKgNrXjfSsYKq5lq2+h0l9P/CqumnT
+          icjdw5ZjyX1GbkzG4ikDPdUS2tBD9kXuw6f+M4FCGsKCHDXFdGlKUc+k7NVO6llE
+          53jIE8hZFufMBmw+a5XaW86SH34oM+mjtAHZRSDDi4r+LWz34BS7b3j01qolwsCr
+          mWyi9lKtgchHKcmL9U++7QXCFMqd/DXGizug9T4E59lacluo5WpJpFzgfcmIeAQi
+          0PG6zLaciZ01MGtVU3DNjMQpfdYPl/QpAOaOozpTGXv7TlyPPZvzHHsicNvQK/rr
+          xCePl1EHftOP9yfu6ChH1vtJOc3ZuQENBFseLG0BCADmWvBreAZqnjoT4NlXdiIg
+          dcefhelsWqAXSYwLNtoHJ7HzO9x+txYlp/CSrwfG4nUOY63o0YzSNXa9s3DhZspS
+          HES7tWeD0/tMUD5CGrU3N/AhUEnp/VqBnb7IZTPUGoGZzHJeNdxJoiZa8dVfFubF
+          DkGdMFPxQ/LIDgAPVcDYUmSoiDDoek6sz1RQnr4wi8yB0ND/0lklDZR1UmbL4bH2
+          UIAxk5vDrqh7e9oZiRxvLOi1S9UI4HyDt2CfN4LzEqfEdBqbs5/74oV0qaMsbUj0
+          Rk+C/svjTpIicbR3ae5IEd/mR3DFKzRacSrq3ettz16yaUYO/eh6FPyvYxMU1kTN
+          ABEBAAGJAR8EGAECAAkFAlseLG0CGwwACgkQp+O6yXbcgqF84gf+NLf35Hezmk1D
+          ksuPxHy/CNrqEzVlozHIDiDKRSA3YHpJTKGuHZwbOy0U+fCf0HBQjinKb5rP52m1
+          zsX6M9Aje9BYcv9RMZ3T8X9jSL0YZBttgLNIen7zmbJuw+QbdXiK1cJbuzonlWLX
+          JYa/aL+8SiFpXdv+scctxbRx3Z0HNg914K6hboDkmqssP5KgMJ1tXiMAA5tNHXEB
+          6/pE6ZxozIhQXq1bEo63CitrL/deoxyFdSoESd0lm86Y4ZLZCFAlkGeVqMJeglMM
+          wFx6lTnySA5m+71f/cPkBXZMX7uT+AMyd2mpwSPcgi5GbkdkjMKOb+De70h35jdv
+          /GuVrTcC2A==
+          =M5KF
+          -----END PGP PUBLIC KEY BLOCK-----
+      extra-source: |
+        - "deb [arch=amd64] http://local-apt-repo/ubuntu/ xenial main"
+    num_units: 1
+    to: [ "lxd:1" ]
+  neutron-api:
+    charm: ./charm-neutron-api
+    series: xenial
+    options:
+      manage-neutron-plugin-legacy-mode: false
+      openstack-origin: cloud:xenial-ocata
+      extra-key: |
+        - |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          Version: GnuPG v1
+          
+          mQENBFseLG0BCAC+XumfN2gli4ZV/NJLTZNVE4Tjq2BHXjnnqR+u6A1kK7rlZR0l
+          SdYbmWwnhK7FDDqIAyKkv1K4MVjaQacj2GbW7D+DHi0X/oBgw/gE8RehkRDthBZ2
+          zTjq+58Dk/vjttKeiwJRXp9wAoIZGasdehWO7iwTjqQO/2h9jVeOYYSmu52rUTYC
+          rtCMFYCkdqeVglvjV72IE7ZdsaXo+/PcAObgEb6yQk2gn16QDdIaOqcqZaW821io
+          jzGDhoXoE38LQrHjA0CWLrVVyasPx1CAsabbTW90qiVHe3nkzySKzZ5GWEEmiWVE
+          mW8R5u58Wn1RUTDufXYRJ5X9sDIdJXHcPYshABEBAAG0OHBpZXRlciAoY29udHJh
+          aWwtcmVwbyB0ZXN0KSA8cGlldGVyLm1hbGFuQG5ldHJvbm9tZS5jb20+iQE4BBMB
+          AgAiBQJbHixtAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCn47rJdtyC
+          oRcvB/9pRwXfwteq444WgtMzQ2e61ZHmG5MKgNrXjfSsYKq5lq2+h0l9P/CqumnT
+          icjdw5ZjyX1GbkzG4ikDPdUS2tBD9kXuw6f+M4FCGsKCHDXFdGlKUc+k7NVO6llE
+          53jIE8hZFufMBmw+a5XaW86SH34oM+mjtAHZRSDDi4r+LWz34BS7b3j01qolwsCr
+          mWyi9lKtgchHKcmL9U++7QXCFMqd/DXGizug9T4E59lacluo5WpJpFzgfcmIeAQi
+          0PG6zLaciZ01MGtVU3DNjMQpfdYPl/QpAOaOozpTGXv7TlyPPZvzHHsicNvQK/rr
+          xCePl1EHftOP9yfu6ChH1vtJOc3ZuQENBFseLG0BCADmWvBreAZqnjoT4NlXdiIg
+          dcefhelsWqAXSYwLNtoHJ7HzO9x+txYlp/CSrwfG4nUOY63o0YzSNXa9s3DhZspS
+          HES7tWeD0/tMUD5CGrU3N/AhUEnp/VqBnb7IZTPUGoGZzHJeNdxJoiZa8dVfFubF
+          DkGdMFPxQ/LIDgAPVcDYUmSoiDDoek6sz1RQnr4wi8yB0ND/0lklDZR1UmbL4bH2
+          UIAxk5vDrqh7e9oZiRxvLOi1S9UI4HyDt2CfN4LzEqfEdBqbs5/74oV0qaMsbUj0
+          Rk+C/svjTpIicbR3ae5IEd/mR3DFKzRacSrq3ettz16yaUYO/eh6FPyvYxMU1kTN
+          ABEBAAGJAR8EGAECAAkFAlseLG0CGwwACgkQp+O6yXbcgqF84gf+NLf35Hezmk1D
+          ksuPxHy/CNrqEzVlozHIDiDKRSA3YHpJTKGuHZwbOy0U+fCf0HBQjinKb5rP52m1
+          zsX6M9Aje9BYcv9RMZ3T8X9jSL0YZBttgLNIen7zmbJuw+QbdXiK1cJbuzonlWLX
+          JYa/aL+8SiFpXdv+scctxbRx3Z0HNg914K6hboDkmqssP5KgMJ1tXiMAA5tNHXEB
+          6/pE6ZxozIhQXq1bEo63CitrL/deoxyFdSoESd0lm86Y4ZLZCFAlkGeVqMJeglMM
+          wFx6lTnySA5m+71f/cPkBXZMX7uT+AMyd2mpwSPcgi5GbkdkjMKOb+De70h35jdv
+          /GuVrTcC2A==
+          =M5KF
+          -----END PGP PUBLIC KEY BLOCK-----
+      extra-source: |
+        - "deb [arch=amd64] http://local-apt-repo/ubuntu/ xenial main"
+    num_units: 1
+    to: [ "lxd:1" ]
+  glance:
+    charm: cs:xenial/glance
+    options:
+      openstack-origin: cloud:xenial-ocata
+    num_units: 1
+    to: [ "lxd:1" ]
+  openstack-dashboard:
+    charm: cs:xenial/openstack-dashboard
+    options:
+      openstack-origin: cloud:xenial-ocata
+    num_units: 1
+    to: [ "lxd:1" ]
+  accel-nova-compute:
+    charm: ./charm-nova-compute
+    options:
+      openstack-origin: cloud:xenial-ocata
+      ksm: "0"
+      hugepages: "8196"
+      pci-passthrough-whitelist: "scan-agilio"
+    num_units: 2
+    to: [ "2", "3" ]
+  contrail-openstack:
+    charm: ./contrail-charms/contrail-openstack
+    series: xenial
+    num_units: 0
+    options:
+      install-keys: |
+        - |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          Version: GnuPG v1
+          
+          mQENBFseLG0BCAC+XumfN2gli4ZV/NJLTZNVE4Tjq2BHXjnnqR+u6A1kK7rlZR0l
+          SdYbmWwnhK7FDDqIAyKkv1K4MVjaQacj2GbW7D+DHi0X/oBgw/gE8RehkRDthBZ2
+          zTjq+58Dk/vjttKeiwJRXp9wAoIZGasdehWO7iwTjqQO/2h9jVeOYYSmu52rUTYC
+          rtCMFYCkdqeVglvjV72IE7ZdsaXo+/PcAObgEb6yQk2gn16QDdIaOqcqZaW821io
+          jzGDhoXoE38LQrHjA0CWLrVVyasPx1CAsabbTW90qiVHe3nkzySKzZ5GWEEmiWVE
+          mW8R5u58Wn1RUTDufXYRJ5X9sDIdJXHcPYshABEBAAG0OHBpZXRlciAoY29udHJh
+          aWwtcmVwbyB0ZXN0KSA8cGlldGVyLm1hbGFuQG5ldHJvbm9tZS5jb20+iQE4BBMB
+          AgAiBQJbHixtAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCn47rJdtyC
+          oRcvB/9pRwXfwteq444WgtMzQ2e61ZHmG5MKgNrXjfSsYKq5lq2+h0l9P/CqumnT
+          icjdw5ZjyX1GbkzG4ikDPdUS2tBD9kXuw6f+M4FCGsKCHDXFdGlKUc+k7NVO6llE
+          53jIE8hZFufMBmw+a5XaW86SH34oM+mjtAHZRSDDi4r+LWz34BS7b3j01qolwsCr
+          mWyi9lKtgchHKcmL9U++7QXCFMqd/DXGizug9T4E59lacluo5WpJpFzgfcmIeAQi
+          0PG6zLaciZ01MGtVU3DNjMQpfdYPl/QpAOaOozpTGXv7TlyPPZvzHHsicNvQK/rr
+          xCePl1EHftOP9yfu6ChH1vtJOc3ZuQENBFseLG0BCADmWvBreAZqnjoT4NlXdiIg
+          dcefhelsWqAXSYwLNtoHJ7HzO9x+txYlp/CSrwfG4nUOY63o0YzSNXa9s3DhZspS
+          HES7tWeD0/tMUD5CGrU3N/AhUEnp/VqBnb7IZTPUGoGZzHJeNdxJoiZa8dVfFubF
+          DkGdMFPxQ/LIDgAPVcDYUmSoiDDoek6sz1RQnr4wi8yB0ND/0lklDZR1UmbL4bH2
+          UIAxk5vDrqh7e9oZiRxvLOi1S9UI4HyDt2CfN4LzEqfEdBqbs5/74oV0qaMsbUj0
+          Rk+C/svjTpIicbR3ae5IEd/mR3DFKzRacSrq3ettz16yaUYO/eh6FPyvYxMU1kTN
+          ABEBAAGJAR8EGAECAAkFAlseLG0CGwwACgkQp+O6yXbcgqF84gf+NLf35Hezmk1D
+          ksuPxHy/CNrqEzVlozHIDiDKRSA3YHpJTKGuHZwbOy0U+fCf0HBQjinKb5rP52m1
+          zsX6M9Aje9BYcv9RMZ3T8X9jSL0YZBttgLNIen7zmbJuw+QbdXiK1cJbuzonlWLX
+          JYa/aL+8SiFpXdv+scctxbRx3Z0HNg914K6hboDkmqssP5KgMJ1tXiMAA5tNHXEB
+          6/pE6ZxozIhQXq1bEo63CitrL/deoxyFdSoESd0lm86Y4ZLZCFAlkGeVqMJeglMM
+          wFx6lTnySA5m+71f/cPkBXZMX7uT+AMyd2mpwSPcgi5GbkdkjMKOb+De70h35jdv
+          /GuVrTcC2A==
+          =M5KF
+          -----END PGP PUBLIC KEY BLOCK-----
+      install-sources: |
+        - "deb [arch=amd64] http://local-apt-repo/ubuntu/ xenial main"
+  accel-contrail-agent:
+    charm: ./contrail-charms/contrail-agent
+    num_units: 0
+    series: xenial
+    options:
+      physical-interface: nfp_p0
+      wait-for-external-plugin: True
+      install-keys: |
+        - |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          Version: GnuPG v1
+          
+          mQENBFseLG0BCAC+XumfN2gli4ZV/NJLTZNVE4Tjq2BHXjnnqR+u6A1kK7rlZR0l
+          SdYbmWwnhK7FDDqIAyKkv1K4MVjaQacj2GbW7D+DHi0X/oBgw/gE8RehkRDthBZ2
+          zTjq+58Dk/vjttKeiwJRXp9wAoIZGasdehWO7iwTjqQO/2h9jVeOYYSmu52rUTYC
+          rtCMFYCkdqeVglvjV72IE7ZdsaXo+/PcAObgEb6yQk2gn16QDdIaOqcqZaW821io
+          jzGDhoXoE38LQrHjA0CWLrVVyasPx1CAsabbTW90qiVHe3nkzySKzZ5GWEEmiWVE
+          mW8R5u58Wn1RUTDufXYRJ5X9sDIdJXHcPYshABEBAAG0OHBpZXRlciAoY29udHJh
+          aWwtcmVwbyB0ZXN0KSA8cGlldGVyLm1hbGFuQG5ldHJvbm9tZS5jb20+iQE4BBMB
+          AgAiBQJbHixtAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCn47rJdtyC
+          oRcvB/9pRwXfwteq444WgtMzQ2e61ZHmG5MKgNrXjfSsYKq5lq2+h0l9P/CqumnT
+          icjdw5ZjyX1GbkzG4ikDPdUS2tBD9kXuw6f+M4FCGsKCHDXFdGlKUc+k7NVO6llE
+          53jIE8hZFufMBmw+a5XaW86SH34oM+mjtAHZRSDDi4r+LWz34BS7b3j01qolwsCr
+          mWyi9lKtgchHKcmL9U++7QXCFMqd/DXGizug9T4E59lacluo5WpJpFzgfcmIeAQi
+          0PG6zLaciZ01MGtVU3DNjMQpfdYPl/QpAOaOozpTGXv7TlyPPZvzHHsicNvQK/rr
+          xCePl1EHftOP9yfu6ChH1vtJOc3ZuQENBFseLG0BCADmWvBreAZqnjoT4NlXdiIg
+          dcefhelsWqAXSYwLNtoHJ7HzO9x+txYlp/CSrwfG4nUOY63o0YzSNXa9s3DhZspS
+          HES7tWeD0/tMUD5CGrU3N/AhUEnp/VqBnb7IZTPUGoGZzHJeNdxJoiZa8dVfFubF
+          DkGdMFPxQ/LIDgAPVcDYUmSoiDDoek6sz1RQnr4wi8yB0ND/0lklDZR1UmbL4bH2
+          UIAxk5vDrqh7e9oZiRxvLOi1S9UI4HyDt2CfN4LzEqfEdBqbs5/74oV0qaMsbUj0
+          Rk+C/svjTpIicbR3ae5IEd/mR3DFKzRacSrq3ettz16yaUYO/eh6FPyvYxMU1kTN
+          ABEBAAGJAR8EGAECAAkFAlseLG0CGwwACgkQp+O6yXbcgqF84gf+NLf35Hezmk1D
+          ksuPxHy/CNrqEzVlozHIDiDKRSA3YHpJTKGuHZwbOy0U+fCf0HBQjinKb5rP52m1
+          zsX6M9Aje9BYcv9RMZ3T8X9jSL0YZBttgLNIen7zmbJuw+QbdXiK1cJbuzonlWLX
+          JYa/aL+8SiFpXdv+scctxbRx3Z0HNg914K6hboDkmqssP5KgMJ1tXiMAA5tNHXEB
+          6/pE6ZxozIhQXq1bEo63CitrL/deoxyFdSoESd0lm86Y4ZLZCFAlkGeVqMJeglMM
+          wFx6lTnySA5m+71f/cPkBXZMX7uT+AMyd2mpwSPcgi5GbkdkjMKOb+De70h35jdv
+          /GuVrTcC2A==
+          =M5KF
+          -----END PGP PUBLIC KEY BLOCK-----
+      install-sources: |
+        - "deb [arch=amd64] http://local-apt-repo/ubuntu/ xenial main"
+  agilio-vrouter:
+    charm: ./agilio-vrouter
+    num_units: 0
+    series: xenial
+    options:
+      virtioforwarder-coremask: "2"
+      install-keys: |
+        - |
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+          Version: GnuPG v1
+
+          mQENBFseLG0BCAC+XumfN2gli4ZV/NJLTZNVE4Tjq2BHXjnnqR+u6A1kK7rlZR0l
+          SdYbmWwnhK7FDDqIAyKkv1K4MVjaQacj2GbW7D+DHi0X/oBgw/gE8RehkRDthBZ2
+          zTjq+58Dk/vjttKeiwJRXp9wAoIZGasdehWO7iwTjqQO/2h9jVeOYYSmu52rUTYC
+          rtCMFYCkdqeVglvjV72IE7ZdsaXo+/PcAObgEb6yQk2gn16QDdIaOqcqZaW821io
+          jzGDhoXoE38LQrHjA0CWLrVVyasPx1CAsabbTW90qiVHe3nkzySKzZ5GWEEmiWVE
+          mW8R5u58Wn1RUTDufXYRJ5X9sDIdJXHcPYshABEBAAG0OHBpZXRlciAoY29udHJh
+          aWwtcmVwbyB0ZXN0KSA8cGlldGVyLm1hbGFuQG5ldHJvbm9tZS5jb20+iQE4BBMB
+          AgAiBQJbHixtAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCn47rJdtyC
+          oRcvB/9pRwXfwteq444WgtMzQ2e61ZHmG5MKgNrXjfSsYKq5lq2+h0l9P/CqumnT
+          icjdw5ZjyX1GbkzG4ikDPdUS2tBD9kXuw6f+M4FCGsKCHDXFdGlKUc+k7NVO6llE
+          53jIE8hZFufMBmw+a5XaW86SH34oM+mjtAHZRSDDi4r+LWz34BS7b3j01qolwsCr
+          mWyi9lKtgchHKcmL9U++7QXCFMqd/DXGizug9T4E59lacluo5WpJpFzgfcmIeAQi
+          0PG6zLaciZ01MGtVU3DNjMQpfdYPl/QpAOaOozpTGXv7TlyPPZvzHHsicNvQK/rr
+          xCePl1EHftOP9yfu6ChH1vtJOc3ZuQENBFseLG0BCADmWvBreAZqnjoT4NlXdiIg
+          dcefhelsWqAXSYwLNtoHJ7HzO9x+txYlp/CSrwfG4nUOY63o0YzSNXa9s3DhZspS
+          HES7tWeD0/tMUD5CGrU3N/AhUEnp/VqBnb7IZTPUGoGZzHJeNdxJoiZa8dVfFubF
+          DkGdMFPxQ/LIDgAPVcDYUmSoiDDoek6sz1RQnr4wi8yB0ND/0lklDZR1UmbL4bH2
+          UIAxk5vDrqh7e9oZiRxvLOi1S9UI4HyDt2CfN4LzEqfEdBqbs5/74oV0qaMsbUj0
+          Rk+C/svjTpIicbR3ae5IEd/mR3DFKzRacSrq3ettz16yaUYO/eh6FPyvYxMU1kTN
+          ABEBAAGJAR8EGAECAAkFAlseLG0CGwwACgkQp+O6yXbcgqF84gf+NLf35Hezmk1D
+          ksuPxHy/CNrqEzVlozHIDiDKRSA3YHpJTKGuHZwbOy0U+fCf0HBQjinKb5rP52m1
+          zsX6M9Aje9BYcv9RMZ3T8X9jSL0YZBttgLNIen7zmbJuw+QbdXiK1cJbuzonlWLX
+          JYa/aL+8SiFpXdv+scctxbRx3Z0HNg914K6hboDkmqssP5KgMJ1tXiMAA5tNHXEB
+          6/pE6ZxozIhQXq1bEo63CitrL/deoxyFdSoESd0lm86Y4ZLZCFAlkGeVqMJeglMM
+          wFx6lTnySA5m+71f/cPkBXZMX7uT+AMyd2mpwSPcgi5GbkdkjMKOb+De70h35jdv
+          /GuVrTcC2A==
+          =M5KF
+          -----END PGP PUBLIC KEY BLOCK-----
+      install-sources: |
+        - "deb [arch=amd64] http://local-apt-repo/ubuntu/ xenial main"
+  contrail-analytics:
+    charm: ./contrail-charms/contrail-analytics
+    num_units: 1
+    series: xenial
+    options:
+      control-network: 10.0.109.0/24
+    to: [ "1" ]
+  contrail-analyticsdb:
+    charm: ./contrail-charms/contrail-analyticsdb
+    num_units: 1
+    series: xenial
+    options:
+      control-network: 10.0.109.0/24
+    to: [ "1" ]
+  contrail-controller:
+    charm: ./contrail-charms/contrail-controller
+    series: xenial
+    options:
+      control-network: 10.0.109.0/24
+      use-external-rabbitmq: True
+    num_units: 1
+    to: [ "1" ]
+  contrail-keystone-auth:
+    charm: ./contrail-charms/contrail-keystone-auth
+    series: xenial
+    num_units: 1
+    to: [ "lxd:1" ]
+
+relations:
+  # openstack
+  - [ "ubuntu", "ntp" ]
+  - [ "keystone", "mysql" ]
+  - [ "glance", "mysql" ]
+  - [ "glance", "keystone" ]
+  - [ "nova-cloud-controller", "mysql" ]
+  - [ "nova-cloud-controller", "rabbitmq-server" ]
+  - [ "nova-cloud-controller", "keystone" ]
+  - [ "nova-cloud-controller", "glance" ]
+  - [ "neutron-api", "mysql" ]
+  - [ "neutron-api", "rabbitmq-server" ]
+  - [ "neutron-api", "nova-cloud-controller" ]
+  - [ "neutron-api", "keystone" ]
+  - [ "accel-nova-compute:shared-db", "mysql:shared-db" ]
+  - [ "accel-nova-compute:amqp", "rabbitmq-server:amqp" ]
+  - [ "accel-nova-compute", "glance" ]
+  - [ "accel-nova-compute", "nova-cloud-controller" ]
+  - [ "openstack-dashboard:identity-service", "keystone:identity-service" ]
+  - [ openstack-dashboard, mysql ]
+
+
+
+  #contrail
+  - [ "contrail-keystone-auth", "keystone" ]
+  - [ "contrail-controller", "contrail-keystone-auth" ]
+  - [ "contrail-controller", "contrail-rabbitmq-server:amqp" ]
+  - [ "contrail-analytics", "contrail-analyticsdb" ]
+  - [ "contrail-controller", "contrail-analytics" ]
+  - [ "contrail-controller", "contrail-analyticsdb" ]
+  - [ "contrail-openstack", "accel-nova-compute" ]
+  - [ "contrail-openstack", "neutron-api" ]
+  - [ "contrail-openstack", "contrail-controller" ]
+  - [ "accel-contrail-agent:juju-info", "accel-nova-compute:juju-info" ]
+  - [ "accel-contrail-agent", "contrail-controller"]
+
+  #Agilio vrouter
+  - [ "accel-contrail-agent", "agilio-vrouter"]
+  - [ "agilio-vrouter:juju-info", "accel-nova-compute:juju-info" ]
+
+machines:
+  "1":
+    series: xenial
+    constraints: tags=controller
+  "2":
+    series: xenial
+    constraints: tags=agilio-compute
+  "3":
+    series: xenial
+    constraints: tags=agilio-compute
