@@ -187,6 +187,7 @@ services:
     options:
       physical-interface: nfp_p0
       wait-for-external-plugin: True
+      vhost-mtu: "9134"
       install-keys: |
         - |
           -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -227,7 +228,7 @@ services:
     num_units: 0
     series: xenial
     options:
-      virtioforwarder-coremask: "2"
+      virtioforwarder-coremask: "2,3"
       install-keys: |
         - |
           -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -305,7 +306,7 @@ relations:
   - [ "neutron-api", "rabbitmq-server" ]
   - [ "neutron-api", "nova-cloud-controller" ]
   - [ "neutron-api", "keystone" ]
-  - [ "accel-nova-compute:shared-db", "mysql:shared-db" ]
+#  - [ "accel-nova-compute:shared-db", "mysql:shared-db" ]
   - [ "accel-nova-compute:amqp", "rabbitmq-server:amqp" ]
   - [ "accel-nova-compute", "glance" ]
   - [ "accel-nova-compute", "nova-cloud-controller" ]
