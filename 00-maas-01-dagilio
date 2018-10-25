@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ ! -e /sys/module/nfp ]; then
+    exit 0
+fi
+
+function write_rule() {
+    local out_file mac id
+    out_file=$1
+    mac=$2
+    id=$3
+    # TBD - ATTR{dev_id}=="0x0", ATTR{type}=="1"
+    echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"nfp\", ATTR{address}==\"$mac\", NAME=\"nfp_p$id\""  >> $out_file
+    echo "" >> $out_file
+}
+
+FILES=/sys/bus/pci/drivers/nfp/*/net/*/address
+
+c=0
+for f in $FILES; do
+    mac[$c]=$(cat $f);
+    c=$((c+1));
+done
+
+mac_sorted=$(printf '%s\n' "${mac[@]}" | sort)
+
+c=0
+for i in ${mac_sorted[*]}; do
+    echo "Creating udev rules for nfp"
+    write_rule "/etc/udev/rules.d/90-netronome.udev.rules" "$i" "$c";
+c=$((c+1));
+done
+
+echo "Reloading udev rules"
+PFS=/sys/bus/pci/drivers/nfp/*/net/*
+
+for f in $PFS; do
+    echo $f
+    udevadm test $f
+done
+
+
